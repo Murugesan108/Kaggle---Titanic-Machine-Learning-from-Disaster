@@ -1,11 +1,11 @@
-# Credit Card data
+######## TITANIC PREDICTION - KAGGLE ###########
 rm(list = ls())
-library(ggplot2)
+
+#Calling the required libraries for the operations
 library(dplyr)
 library(glmnet) # For cross validation and regularization (ridge and lasso) using glm models
 
-
-
+## Setting the wroking directors
 path = "C:\\Users\\arvra\\Documents\\UVa files\\Classes\\Fall_18\\Data Mining\\Kaggle competitions\\Titanic\\"
 setwd(path)
 
@@ -13,8 +13,6 @@ setwd(path)
 #Reading the train and test data
 train_data <- read.csv(dir()[grep("train",dir())])
 test_data <- read.csv(dir()[grep("test",dir())])
-
-summary(train_data)
 
 ############################# FEATURE ENGINEERING  ########################################################3
 
@@ -32,7 +30,7 @@ initial_fn <- function(train_data){
   return(train_data)
 }
 
-
+## Function to pre-preprocess - add Age and features like name title and others
 data_pre_processing <- function(data_input)
 {
   
