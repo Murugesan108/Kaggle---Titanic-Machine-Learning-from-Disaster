@@ -67,25 +67,6 @@ data_pre_processing <- function(data_input)
   age.fit <- glm(Age ~ poly(SibSp,2)+poly(Parch,2)+poly(Fare,2)+title_form+poly(Pclass,2)+Sex,
                  data= train_data_1[!is.na(train_data_1$Age),])
   
-  ### Using k-fold cross validation to build the model 
-  ## Setting k-value as 20
-  # age.cv.fit <- cv.glm(train_data_1[!is.na(train_data_1$Age),], age.fit, K = 20)	
-  # 
-  # ## Creaing a matrix format with one hot vectors to be used for creating the model
-  # x =  model.matrix(Age ~ poly(SibSp,2)+poly(Parch,2)+poly(Fare,2)+title_form+poly(Pclass,2)+Sex, train_data_1[!is.na(train_data_1$Age),]) [,-1]
-  # y = train_data_1[!is.na(train_data_1$Age),]$Age
-  # 
-  # 
-  # ridge.fit =  glmnet(x, y, alpha = 0)
-  # 
-  # cv.ridge.fit = cv.glmnet(x,y, alpha = 0)
-  # 
-  # df.ridge.fit = data.frame(cbind(predict(cv.ridge.fit, x),y,predict(cv.ridge.fit, x)-y))
-  # df.age.fit = data.frame(cbind(predict(age.fit), y,predict(age.fit)-y))
-  # 
-  # The sum of third column for ridge is zero. Somehow it seems that age.fit to be a better model
-  
-  
   ###Imputing the age column with the model created for age
   train_data_1[is.na(train_data_1$Age),]$Age <- round(predict(age.fit, train_data_1[is.na(train_data_1$Age),]))
   
